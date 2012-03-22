@@ -9,7 +9,7 @@
 
     <!-- A universally unique application identifier. Must be unique across all BlackBerry Tablet OS applications.
          Using a reverse DNS-style name as the id is recommended. (Eg. com.example.ExampleApplication.) Required. -->
-    <id>com.example.stellarium</id>
+    <id>com.siarheig.stellarium</id>
 
     <!-- The name that is displayed in the BlackBerry Tablet OS application installer. 
          May have multiple values for each language. See samples or xsd schema file. Optional. -->
@@ -29,7 +29,7 @@
 
     <!-- Description, displayed in the BlackBerry Tablet OS application installer.
          May have multiple values for each language. See samples or xsd schema file. Optional. -->
-    <description>The stellarium application</description>
+    <description>Stellarium for Playbook</description>
 
     <!-- Copyright information. Optional. -->
     <!-- <copyright></copyright> -->

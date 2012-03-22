@@ -234,7 +234,7 @@ void StelApp::init(QSettings* conf)
  #elif SVN_REVISION
 	StelLoadingBar loadingBar("textures/logo24bits.png", QString("SVN r%1").arg(SVN_REVISION), 25, 320, 101);
  #else
-	StelLoadingBar loadingBar("textures/logo24bits.png", PACKAGE_VERSION, 30, 320, 121);
+	StelLoadingBar loadingBar("textures/logo24bits.png", PACKAGE_VERSION, 45, 320, 121);
  #endif
 #endif
 	loadingBar.draw();
