@@ -63,7 +63,7 @@ StelTextureSP StelTextureMgr::createTexture(const QString& afilename, const Stel
 	{
 		tex->fullPath = StelFileMgr::findFile(afilename);
 	}
-	catch (std::runtime_error er)
+	catch (std::runtime_error& er)
 	{
 #ifdef USE_OPENGL_ES2
 		// Allow to replace the texures by compressed .pvr versions using GPU decompression.
@@ -125,7 +125,7 @@ StelTextureSP StelTextureMgr::createTextureThread(const QString& url, const Stel
 		{
 			tex->fullPath = StelFileMgr::findFile(url);
 		}
-		catch (std::runtime_error e)
+		catch (std::runtime_error& e)
 		{
 			try
 			{

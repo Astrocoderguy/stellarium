@@ -66,9 +66,12 @@ public:
 	//! Get the next observer to use once the life of this one is over
 	virtual StelObserver* getNextObserver() const {return new StelObserver(currentLocation);}
 
+	double getMagneticDeclination() const {return magneticDeclination;}
+
 protected:
 	StelLocation currentLocation;
 	QSharedPointer<Planet> planet;
+	double magneticDeclination;
 };
 
 //! @class SpaceShipObserver

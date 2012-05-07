@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/graphicGui">
+        <file>0-on-point-see.png</file>
+        <file>0-off-point-see.png</file>
         <file>0-on-zoomout.png</file>
         <file>0-off-zoomout.png</file>
         <file>0-on-zoomin.png</file>

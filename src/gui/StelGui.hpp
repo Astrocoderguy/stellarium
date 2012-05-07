@@ -182,7 +182,7 @@ private slots:
 	void fogDisplayedUpdated(const bool displayed);
 	void landscapeDisplayedUpdated(const bool displayed);
 	void copySelectedObjectInfo(void);
-
+	void setFlagTracking(bool f=true);
 private:
 	QGraphicsWidget* topLevelGraphicsWidget;
 			

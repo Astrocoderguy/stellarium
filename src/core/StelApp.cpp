@@ -47,6 +47,8 @@
 #include "StelGuiBase.hpp"
 #include "StelPainter.hpp"
 
+#include "blackberry/SensorMgr.h"
+
 #include <iostream>
 #include <QStringList>
 #include <QString>
@@ -315,6 +317,10 @@ void StelApp::init(QSettings* conf)
 	getModuleMgr().registerModule(skyLabels);
 
 	skyCultureMgr->init();
+
+	SensorMgr* sensor = new SensorMgr();
+	sensor->init();
+	getModuleMgr().registerModule(sensor);
 
 	// Initialisation of the color scheme
 	bool tmp = confSettings->value("viewing/flag_night").toBool();

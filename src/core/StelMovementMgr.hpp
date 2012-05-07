@@ -198,6 +198,9 @@ public slots:
 	void setDragTimeMode(bool b) {dragTimeMode=b;}
 	bool getDragTimeMode() const {return dragTimeMode;}
 
+	void setSensorDirection(double lon, double lat, float az, float pi);
+	void setPointAndSee(bool f) {pointAndSee=f; if(f) setFlagTracking(false);}
+
 private slots:
 	//! Called when the selected object changes.
 	void selectedObjectChange(StelModule::StelModuleSelectAction action);
@@ -318,6 +321,8 @@ private:
 	Vec3d upVectorMountFrame;
 
 	float dragTriggerDistance;
+
+	bool  pointAndSee;
 };
 
 #endif // _STELMOVEMENTMGR_HPP_

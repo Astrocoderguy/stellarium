@@ -46,9 +46,8 @@
 			"count": 1.7,
 			"magRange": [10.5, 12],
 			"sizeMb": 17,
-			"url": "http://downloads.sourceforge.net/sourceforge/stellarium/stars_4_1v0_0.cat",
 			"checksum": "3abe460ce558418dbdab9a251c173cc4",
-			"checked": false
+			"checked": true
 		},
 		{
 			"id": "stars5",

@@ -45,7 +45,8 @@ StelMovementMgr::StelMovementMgr(StelCore* acore) : core(acore),
 	dragTimeMode(false),
 	flagAutoZoom(0),
 	flagAutoZoomOutResetsDirection(0),
-	dragTriggerDistance(4.f)
+	dragTriggerDistance(4.f),
+	pointAndSee(false)
 {
 	setObjectName("StelMovementMgr");
 	isDragging = false;
@@ -252,6 +253,24 @@ void StelMovementMgr::handleMouseWheel(QWheelEvent* event)
 	int numSteps = numDegrees / 15;
 	zoomTo(getAimFov()-mouseZoomSpeed*numSteps*getAimFov()/60., 0.2);
 	event->accept();
+}
+
+void StelMovementMgr::setSensorDirection(double lon, double lat, float az,
+		float pi)
+{
+	if(!pointAndSee) return;
+	double trueNorthDec = core->getTrueNorthDec();
+	qDebug() << "setSensorDirection(" << lon <<","<<lat<<","<<az<<","<<pi<<") true north: "<<trueNorthDec;
+
+	double azr = 3.*M_PI - (az-trueNorthDec)*M_PI/180.;
+	double pir = abs(pi) * M_PI/180.;
+	if (pir > M_PI/2.) pir -= M_PI/2.;
+
+	Vec3d v;
+	StelUtils::spheToRect(azr, pir, v);
+
+	v = core->altAzToJ2000(v, StelCore::RefractionOff);
+	moveToJ2000(v,0.1);
 }
 
 void StelMovementMgr::addTimeDragPoint(int x, int y)

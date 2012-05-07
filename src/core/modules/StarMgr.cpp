@@ -291,7 +291,7 @@ bool StarMgr::checkAndLoadCatalog(QVariantMap catDesc)
 	{
 		catalogFilePath = StelFileMgr::findFile(catalogFileName);
 	}
-	catch (std::runtime_error e)
+	catch (std::runtime_error& e)
 	{
 		// The file is supposed to be checked, but we can't find it
 		if (checked)

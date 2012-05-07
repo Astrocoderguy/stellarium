@@ -115,7 +115,7 @@ void StelDialog::setVisible(bool v)
 		int newX = (int)((screenSize.width() - size.width())/2);
 		int newY = (int)((screenSize.height() - size.height())/2);
 		// Make sure that the window's title bar is accessible
-		if (newY <-0)
+//		if (newY <-0)
 			newY = 0;
 		proxy->setPos(newX, newY);
 		StelMainGraphicsView::getInstance().scene()->addItem(proxy);

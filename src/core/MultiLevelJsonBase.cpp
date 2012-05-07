@@ -82,7 +82,7 @@ void JsonLoadThread::run()
 		buf.open(QIODevice::ReadOnly);
 		tile->temporaryResultMap = MultiLevelJsonBase::loadFromJSON(buf, qZcompressed, gzCompressed);
 	}
-	catch (std::runtime_error e)
+	catch (std::runtime_error& e)
 	{
 		qWarning() << "WARNING : Can't parse loaded JSON description: " << e.what();
 		tile->errorOccured = true;
@@ -119,7 +119,7 @@ void MultiLevelJsonBase::initFromUrl(const QString& url)
 		{
 			fileName = StelFileMgr::findFile(url);
 		}
-		catch (std::runtime_error e)
+		catch (std::runtime_error& e)
 		{
 			try
 			{
@@ -144,7 +144,7 @@ void MultiLevelJsonBase::initFromUrl(const QString& url)
 		{
 			loadFromQVariantMap(loadFromJSON(f, compressed, gzCompressed));
 		}
-		catch (std::runtime_error e)
+		catch (std::runtime_error& e)
 		{
 			qWarning() << "WARNING : Can't parse JSON description: " << fileName << ": " << e.what();
 			errorOccured = true;
@@ -197,7 +197,7 @@ void MultiLevelJsonBase::initFromQVariantMap(const QVariantMap& map)
 	{
 		loadFromQVariantMap(map);
 	}
-	catch (std::runtime_error e)
+	catch (std::runtime_error& e)
 	{
 		qWarning() << "WARNING: invalid variant map: " << e.what();
 		errorOccured = true;
@@ -343,7 +343,7 @@ void MultiLevelJsonBase::jsonLoadFinished()
 	{
 		loadFromQVariantMap(temporaryResultMap);
 	}
-	catch (std::runtime_error e)
+	catch (std::runtime_error& e)
 	{
 		qWarning() << "WARNING: invalid variant map: " << e.what();
 		errorOccured = true;

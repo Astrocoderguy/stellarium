@@ -103,6 +103,8 @@ private slots:
 	//! Called when the user wants to use the current location as default
 	void useAsDefaultClicked();
 	
+	void useGPSClicked();
+
 private:
 	QString lastPlanet;	
 	bool lastVisionMode;

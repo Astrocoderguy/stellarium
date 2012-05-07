@@ -296,6 +296,7 @@ public:
 
 	//! Get the informations on the current location
 	const StelLocation& getCurrentLocation() const;
+	double getTrueNorthDec() const;
 
 	//! Smoothly move the observer to the given location
 	//! @param target the target location
@@ -359,6 +360,11 @@ public slots:
 	QString getDefaultLocationID() const {return defaultLocationID;}
 	//! Set the location to use by default at startup
 	void setDefaultLocationID(const QString& id);
+
+	bool getUseGPS() {return useGPS;}
+	void setUseGPS(bool f);
+
+	void setGPSLocation(double lon, double lat);
 
 
 	//! Set the current date in Julian Day
@@ -488,6 +494,9 @@ private:
 	StelObserver* position;
 	// The ID of the default startup location
 	QString defaultLocationID;
+
+	bool useGPS;
+	StelLocation* lastGPSLocation;
 
 	// Time variables
 	double timeSpeed;                       // Positive : forward, Negative : Backward, 1 = 1sec/sec

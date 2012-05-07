@@ -52,7 +52,7 @@ const double StelCore::JD_HOUR  =0.041666666666666666666;
 const double StelCore::JD_DAY   =1.;
 
 
-StelCore::StelCore() : movementMgr(NULL), geodesicGrid(NULL), currentProjectionType(ProjectionStereographic), position(NULL), timeSpeed(JD_SECOND), JDay(0.)
+StelCore::StelCore() : movementMgr(NULL), geodesicGrid(NULL), currentProjectionType(ProjectionStereographic), position(NULL), timeSpeed(JD_SECOND), JDay(0.), useGPS(true), lastGPSLocation(NULL)
 {
 	toneConverter = new StelToneReproducer();
 
@@ -74,6 +74,8 @@ StelCore::StelCore() : movementMgr(NULL), geodesicGrid(NULL), currentProjectionT
 	currentProjectorParams.flipVert = conf->value("projection/flip_vert",false).toBool();
 
 	currentProjectorParams.gravityLabels = conf->value("viewing/flag_gravity_labels").toBool();
+
+	useGPS = conf->value("init_location/useGPS",true).toBool();
 }
 
 
@@ -401,6 +403,46 @@ void StelCore::setDefaultLocationID(const QString& id)
 	conf->setValue("init_location/location", id);
 }
 
+void StelCore::setUseGPS(bool f)
+{
+	useGPS = f;
+	QSettings* conf = StelApp::getInstance().getSettings();
+	Q_ASSERT(conf);
+	conf->setValue("init_location/useGPS", f);
+
+	if(f && lastGPSLocation)
+		moveObserverTo(*lastGPSLocation);
+
+}
+
+static const double GEO_THRESHOLD = .1;
+
+void StelCore::setGPSLocation(double lon, double lat)
+{
+	qDebug() << "setGPSLocation() " << lon << "," << lat << " useGPS=" << useGPS;
+
+	if (!lastGPSLocation || abs(lastGPSLocation->latitude - lat) > GEO_THRESHOLD
+			|| abs(lastGPSLocation->longitude - lon > GEO_THRESHOLD)) {
+
+
+		StelLocation* gpsLoc = new StelLocation;
+		gpsLoc->altitude = 0;
+		gpsLoc->latitude = lat;
+		gpsLoc->longitude = lon;
+		gpsLoc->name = "GPS " + QString::number(lat + .005, 'f', 2)
+				+ "," + QString::number(lon + .005, 'f', 2);
+		gpsLoc->planetName = "Earth";
+
+		if(lastGPSLocation) delete lastGPSLocation;
+		lastGPSLocation = gpsLoc;
+
+		if(useGPS) moveObserverTo(*gpsLoc);
+
+	}
+
+}
+
+
 void StelCore::moveObserverToSelected()
 {
 	StelObjectMgr* objmgr = GETSTELMODULE(StelObjectMgr);
@@ -427,6 +469,11 @@ void StelCore::moveObserverToSelected()
 const StelLocation& StelCore::getCurrentLocation() const
 {
 	return position->getCurrentLocation();
+}
+
+double StelCore::getTrueNorthDec() const
+{
+	return position->getMagneticDeclination();
 }
 
 // Smoothly move the observer to the given location

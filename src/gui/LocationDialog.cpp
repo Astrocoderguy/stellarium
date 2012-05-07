@@ -33,6 +33,8 @@
 #include "StelGui.hpp"
 #include "StelGuiItems.hpp"
 
+#include "blackberry/SensorMgr.h"
+
 #include <QSettings>
 #include <QDebug>
 #include <QFrame>
@@ -108,6 +110,13 @@ void LocationDialog::createDialogContent()
 	ui->useAsDefaultLocationCheckBox->setEnabled(!b);
 	connect(ui->useAsDefaultLocationCheckBox, SIGNAL(clicked()), this, SLOT(useAsDefaultClicked()));
 
+	bool bg = StelApp::getInstance().getCore()->getUseGPS();
+	bg = !bg;
+	bg = !bg;
+	qDebug() << "getUseGPS(): " << bg;
+	ui->useGPScheckBox->setChecked(bg);
+	connect(ui->useGPScheckBox, SIGNAL(clicked()), this, SLOT(useGPSClicked()));
+
 	connectEditSignals();
 
 	QTimer* refreshTimer = new QTimer(this);
@@ -130,6 +139,10 @@ void LocationDialog::updateFromProgram()
 		ui->useAsDefaultLocationCheckBox->setChecked(b);
 		ui->useAsDefaultLocationCheckBox->setEnabled(!b);
 	}
+
+	const bool bg = StelApp::getInstance().getCore()->getUseGPS();
+	ui->useGPScheckBox->setChecked(bg);
+
 
 	// removing this check and return... we might have the location changed
 	// by a script or plugin, and as such we should update the map whenever the
@@ -334,6 +347,9 @@ void LocationDialog::listItemActivated(const QModelIndex& index)
 
 	StelLocation loc = StelApp::getInstance().getLocationMgr().locationForSmallString(index.data().toString());
 
+	ui->useGPScheckBox->setChecked(false);
+	useGPSClicked();
+
 	setFieldsFromLocation(loc);
 	StelApp::getInstance().getCore()->moveObserverTo(loc, 0.);
 
@@ -348,6 +364,10 @@ void LocationDialog::setPositionFromMap(double longitude, double latitude)
 	StelLocation loc = locationFromFields();
 	loc.latitude = latitude;
 	loc.longitude = longitude;
+
+	ui->useGPScheckBox->setChecked(false);
+	useGPSClicked();
+
 	setFieldsFromLocation(loc);
 	StelApp::getInstance().getCore()->moveObserverTo(loc, 0.);
 }
@@ -450,6 +470,13 @@ void LocationDialog::useAsDefaultClicked()
 	//the window is closed.
 	ui->citySearchLineEdit->setFocus();
 	connectEditSignals();
+}
+
+// Called when the user wants to use the current location as default
+void LocationDialog::useGPSClicked()
+{
+	StelCore* core = StelApp::getInstance().getCore();
+	core->setUseGPS(ui->useGPScheckBox->isChecked());
 }
 
 // Called when the user clic on the delete button
