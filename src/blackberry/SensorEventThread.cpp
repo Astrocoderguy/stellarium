@@ -6,6 +6,7 @@
  */
 
 #include "SensorEventThread.h"
+#include "SensorMgr.h"
 
 #include <QDebug>
 
@@ -15,7 +16,7 @@
 #include <errno.h>
 #include <math.h>
 
-SensorEventThread::SensorEventThread():longitude(0.),latitude(100.),azimuth(0.f),pitch(0.f) {
+SensorEventThread::SensorEventThread(SensorMgr* sMgr):longitude(0.),latitude(100.),azimuth(0.f),pitch(0.f),_sMgr(sMgr) {
 
 }
 
@@ -28,7 +29,9 @@ void SensorEventThread::run() {
 	bps_initialize();
 
     if (BPS_SUCCESS != geolocation_request_events(0)) {
-    	qFatal("Error requesting geolocation events: %s", strerror(errno));
+    	qDebug() << "No access to GPS";
+    	_sMgr->setGpsPermitted(false);
+    	//qFatal("Error requesting geolocation events: %s", strerror(errno));
     }
 
     geolocation_set_period(30);

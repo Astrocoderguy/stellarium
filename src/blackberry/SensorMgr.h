@@ -19,9 +19,12 @@ public:
 	virtual void init();
 	virtual void deinit();
 	virtual void update(double deltaTime);
+	bool getGpsPermitted() const {return _gpsPermitted;}
+	void setGpsPermitted(bool f) {_gpsPermitted=f;}
 
 private:
 	SensorEventThread* _eventThread;
+	bool _gpsPermitted;
 };
 
 #endif /* SENSORMGR_H_ */

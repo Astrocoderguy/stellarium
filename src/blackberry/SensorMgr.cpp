@@ -11,7 +11,7 @@
 #include <StelCore.hpp>
 #include <StelMovementMgr.hpp>
 
-SensorMgr::SensorMgr() {
+SensorMgr::SensorMgr():_gpsPermitted(true) {
 	setObjectName("SensorMgr");
 
 }
@@ -21,7 +21,7 @@ SensorMgr::~SensorMgr() {
 }
 
 void SensorMgr::init() {
-	_eventThread = new SensorEventThread();
+	_eventThread = new SensorEventThread(this);
 	_eventThread->start();
 	StelCore* core = StelApp::getInstance().getCore();
 	connect(_eventThread, SIGNAL(geo_changed(double, double)), core, SLOT(setGPSLocation(double, double)));

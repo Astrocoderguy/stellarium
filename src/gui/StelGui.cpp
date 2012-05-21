@@ -644,7 +644,7 @@ void StelGui::init(QGraphicsWidget* atopLevelGraphicsWidget,
 
 	pxmapOn = QPixmap(":/graphicGui/0-on-point-see.png");
 	pxmapOff = QPixmap(":/graphicGui/0-off-point-see.png");
-	b = new StelButton(NULL, pxmapOn, pxmapOff, pxmapGlow,
+	b = new StelButton(NULL, pxmapOn, pxmapOff, pxmapNull,
 			getGuiActions("actionPoint_And_See"));
 	skyGui->navBar->addButton(b);
 #endif

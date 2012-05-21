@@ -14,10 +14,12 @@
 static const float AZ_THRESHOLD = 1;
 static const float PITCH_THRESHOLD = 1;
 
+class SensorMgr;
+
 class SensorEventThread: public QThread {
 	Q_OBJECT
 public:
-	SensorEventThread();
+	SensorEventThread(SensorMgr* sMgr);
 	virtual ~SensorEventThread();
 
 protected:
@@ -37,6 +39,7 @@ private:
 	double latitude;
 	float  azimuth;
 	float  pitch;
+	SensorMgr* _sMgr;
 };
 
 #endif /* SENSOREVENTTHREAD_H_ */

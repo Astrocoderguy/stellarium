@@ -110,11 +110,19 @@ void LocationDialog::createDialogContent()
 	ui->useAsDefaultLocationCheckBox->setEnabled(!b);
 	connect(ui->useAsDefaultLocationCheckBox, SIGNAL(clicked()), this, SLOT(useAsDefaultClicked()));
 
-	bool bg = StelApp::getInstance().getCore()->getUseGPS();
-	bg = !bg;
-	bg = !bg;
-	qDebug() << "getUseGPS(): " << bg;
-	ui->useGPScheckBox->setChecked(bg);
+	SensorMgr* sensorMgr = (SensorMgr*)StelApp::getInstance().getModuleMgr().getModule("SensorMgr");
+	if(sensorMgr->getGpsPermitted()) {
+		bool bg = StelApp::getInstance().getCore()->getUseGPS();
+		bg = !bg;
+		bg = !bg;
+		qDebug() << "getUseGPS(): " << bg;
+		ui->useGPScheckBox->setChecked(bg);
+	}
+	else {
+		qDebug() << "Disable GPS checkbox";
+		ui->useGPScheckBox->setChecked(false);
+		ui->useGPScheckBox->setEnabled(false);
+	}
 	connect(ui->useGPScheckBox, SIGNAL(clicked()), this, SLOT(useGPSClicked()));
 
 	connectEditSignals();
@@ -140,9 +148,15 @@ void LocationDialog::updateFromProgram()
 		ui->useAsDefaultLocationCheckBox->setEnabled(!b);
 	}
 
-	const bool bg = StelApp::getInstance().getCore()->getUseGPS();
-	ui->useGPScheckBox->setChecked(bg);
-
+	SensorMgr* sensorMgr = (SensorMgr*)StelApp::getInstance().getModuleMgr().getModule("SensorMgr");
+	if(sensorMgr->getGpsPermitted()) {
+		const bool bg = StelApp::getInstance().getCore()->getUseGPS();
+		ui->useGPScheckBox->setChecked(bg);
+	}
+	else {
+		ui->useGPScheckBox->setChecked(false);
+		ui->useGPScheckBox->setEnabled(false);
+	}
 
 	// removing this check and return... we might have the location changed
 	// by a script or plugin, and as such we should update the map whenever the
