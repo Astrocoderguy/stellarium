@@ -37,6 +37,7 @@ StelAppGraphicsWidget::StelAppGraphicsWidget()
 	previousPaintTime = StelApp::getTotalRunTime();
 	setFocusPolicy(Qt::StrongFocus);
 	stelApp = new StelApp();
+
 }
 
 StelAppGraphicsWidget::~StelAppGraphicsWidget()
@@ -64,6 +65,8 @@ void StelAppGraphicsWidget::init(QSettings* conf)
 	//deltaT the first time it is calculated in paintPartial(), which in
 	//turn causes Stellarium to start with a wrong time.
 	previousPaintTime = StelApp::getTotalRunTime();
+	setAcceptTouchEvents(true);
+	grabGesture(Qt::PinchGesture);
 }
 
 
@@ -227,6 +230,32 @@ void StelAppGraphicsWidget::initBuffers()
 		Q_ASSERT(backgroundBuffer->isValid());
 		Q_ASSERT(foregroundBuffer->isValid());
 	}
+}
+
+bool StelAppGraphicsWidget::sceneEvent(QEvent *event)
+{
+//	qDebug() << "sceneEvent: " << event->type();
+    if (event->type() == QEvent::Gesture)
+        return gestureEvent(static_cast<QGestureEvent*>(event));
+    if(event->type() == QEvent::TouchBegin) return true;
+    return QGraphicsWidget::sceneEvent(event);
+}
+
+bool StelAppGraphicsWidget::gestureEvent(QGestureEvent *event)
+{
+	qDebug() << "Gesture event";
+    if (QGesture *pinch = event->gesture(Qt::PinchGesture))
+        pinchTriggered(static_cast<QPinchGesture *>(pinch));
+    return true;
+}
+
+void StelAppGraphicsWidget::pinchTriggered(QPinchGesture *gesture)
+{
+    QPinchGesture::ChangeFlags changeFlags = gesture->changeFlags();
+    if (changeFlags & QPinchGesture::ScaleFactorChanged) {
+        qreal value = gesture->property("scaleFactor").toReal();
+        stelApp->handlePinchZoom(value);
+    }
 }
 
 void StelAppGraphicsWidget::mouseMoveEvent(QGraphicsSceneMouseEvent *event)

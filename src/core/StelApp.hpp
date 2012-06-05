@@ -192,6 +192,7 @@ private:
 	void handleMove(int x, int y, Qt::MouseButtons b);
 	//! Handle key press and release.
 	void handleKeys(class QKeyEvent* event);
+	void handlePinchZoom(qreal factor);
 
 	// The StelApp singleton
 	static StelApp* singleton;

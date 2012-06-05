@@ -79,7 +79,7 @@ void StelMovementMgr::init()
 	flagAutoZoomOutResetsDirection = conf->value("navigation/auto_zoom_out_resets_direction", true).toBool();
 	flagEnableMouseNavigation = conf->value("navigation/flag_enable_mouse_navigation",true).toBool();
 
-	minFov = 0.0001;
+	minFov = 0.001;
 	maxFov = 100.;
 	initFov = conf->value("navigation/init_fov",60.f).toFloat();
 	currentFov = initFov;
@@ -891,6 +891,11 @@ void StelMovementMgr::updateAutoZoom(double deltaTime)
 			setFov(zoomMove.aim);
 		}
 	}
+}
+
+void StelMovementMgr::handlePinchZoom(qreal factor)
+{
+	zoomTo(getAimFov()/factor, 0.001);
 }
 
 // Zoom to the given field of view

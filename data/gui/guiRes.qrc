@@ -45,6 +45,7 @@
         <file>btFlipVertical-on.png</file>
         <file>nv_checkbox-checked.png</file>
         <file>closeButton.png</file>
+        <file>closeButton-big.png</file>
         <file>closeButton-hover.png</file>
         <file>nv_checkbox-unchecked.png</file>
         <file>nv_radio-checked.png</file>
@@ -60,6 +61,8 @@
         <file>btbg-middle.png</file>
         <file>btbg-right.png</file>
         <file>btbg-single.png</file>
+        <file>bt-off-time.png</file>
+        <file>bt-on-time.png</file>
         <file>1-off-time.png</file>
         <file>1-on-time.png</file>
         <file>2-off-location.png</file>
@@ -124,7 +127,9 @@
         <file>radio-unchecked.png</file>
         <file>resize.png</file>
         <file>spindown.png</file>
+        <file>spindown-big.png</file>
         <file>spinup.png</file>
+        <file>spinup-big.png</file>
         <file>spinright.png</file>
         <file>spinleft.png</file>
         <file>VerticalAutoHideOff.png</file>

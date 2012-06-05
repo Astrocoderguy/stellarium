@@ -600,6 +600,13 @@ void StelGui::init(QGraphicsWidget* atopLevelGraphicsWidget,
 			getGuiActions("actionIncrease_Time_Speed"));
 	skyGui->buttonBar->addButton(buttonTimeForward, "070-timeGroup");
 
+	pxmapOn = QPixmap(":/graphicGui/bt-on-time.png");
+	pxmapOff = QPixmap(":/graphicGui/bt-off-time.png");
+	b = new StelButton(NULL, pxmapOn, pxmapOff, NULL,
+			getGuiActions("actionShow_DateTime_Window_Global"));
+	skyGui->buttonBar->addButton(b);
+
+
 	skyGui->buttonBar->setGroupMargin("070-timeGroup", 32, 0);
 
 //	pxmapOn = QPixmap(":/graphicGui/btQuit.png");

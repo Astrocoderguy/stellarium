@@ -21,6 +21,7 @@
 #define _STELAPPGRAPHICSWIDGET_HPP_
 
 #include <QGraphicsWidget>
+#include <QGesture>
 
 class StelViewportEffect;
 
@@ -59,6 +60,9 @@ protected:
 	virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
 	virtual void wheelEvent(QGraphicsSceneWheelEvent * wheelEvent);
 	virtual void resizeEvent(QGraphicsSceneResizeEvent* event);
+	virtual bool sceneEvent(QEvent *event);
+	virtual bool gestureEvent(QGestureEvent *event);
+	virtual void pinchTriggered(QPinchGesture *gesture);
 
 private:
 	double previousPaintTime;

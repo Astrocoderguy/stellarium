@@ -46,6 +46,7 @@
 #include "StelAudioMgr.hpp"
 #include "StelGuiBase.hpp"
 #include "StelPainter.hpp"
+#include "StelMovementMgr.hpp"
 
 #include "blackberry/SensorMgr.h"
 
@@ -463,6 +464,11 @@ void StelApp::handleMove(int x, int y, Qt::MouseButtons b)
 		if (i->handleMouseMoves(x, y, b))
 			return;
 	}
+}
+
+void StelApp::handlePinchZoom(qreal factor)
+{
+	static_cast<StelMovementMgr*>(moduleMgr->getModule("StelMovementMgr"))->handlePinchZoom(factor);
 }
 
 // Handle key press and release

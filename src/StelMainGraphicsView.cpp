@@ -201,7 +201,7 @@ StelMainGraphicsView::StelMainGraphicsView(QWidget* parent)
 	QGLFormat glFormat(QGL::StencilBuffer | QGL::DepthBuffer | QGL::DoubleBuffer);
 	glContext = new QGLContext(glFormat);
 	glWidget = new StelQGLWidget(glContext, this);
-	glWidget->updateGL();
+//	glWidget->updateGL();
 	setViewport(glWidget);
 
 	// This line seems to cause font aliasing troubles on win32

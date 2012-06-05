@@ -53,6 +53,12 @@ QFrame#TitleBar {
 }
 
 /*********************************************dateTimedialog*********************************************************/
+#dateTimeDialogForm QPushButton#closeStelWindow {
+	border: 0px;
+	background: none;
+	background-image: url(:/graphicGui/closeButton-big.png);
+}
+
 
 #dateTimeDialogForm #dateTimeBox QFrame {
 	background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 rgb(167, 0, 0), stop: 1 rgb(150, 0, 0));
@@ -71,8 +77,8 @@ QFrame#TitleBar {
 	border-image: none;
 	border: 0px;
 	background: rgba(0, 0, 0, 0%);
-	padding-top: 16px;
-	padding-bottom: 16px;
+	padding-top: 32px;
+	padding-bottom: 32px;
 	font-size: 18px;
 	text-align: center;
 	padding-left: 3px;
@@ -83,7 +89,8 @@ QFrame#TitleBar {
 	subcontrol-origin: border;
 	subcontrol-position: top center;
 	margin: 0;
-	width: 32px;
+	width: 50px;
+	height: 30px;
 	border: none;
 	background: none;
 	image: none;
@@ -93,7 +100,7 @@ QFrame#TitleBar {
 	image: url(:/graphicGui/nv_spinup.png);
 	subcontrol-origin: border;
 	subcontrol-position: bottom center;
-	padding-bottom: 20px;
+	padding-bottom: 10px;
 }
 
 #dateTimeDialogForm QSpinBox::down-button {
@@ -101,7 +108,8 @@ QFrame#TitleBar {
 	subcontrol-position: bottom center;
 	margin: 0;
 	border: none;
-	width: 32px;
+	width: 50px;
+	height: 30px;
 	background: none;
 	image: none;
 }
@@ -110,7 +118,7 @@ QFrame#TitleBar {
 	image: url(:/graphicGui/nv_spindown.png);
 	subcontrol-origin: border;
 	subcontrol-position: top center;
-	padding-top: 20px;
+	padding-top: 10px;
 }
 
 /*************************************************************************************************************/
